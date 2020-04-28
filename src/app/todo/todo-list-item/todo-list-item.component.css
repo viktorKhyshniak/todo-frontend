@@ -1,0 +1,7 @@
+.d-flex {
+  display: flex;
+}
+
+.mat-list-item {
+  height: 5rem;
+}

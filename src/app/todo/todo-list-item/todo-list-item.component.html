@@ -1,0 +1,23 @@
+<mat-list-item matLine (mouseover)="showOptions=true" (mouseleave)="showOptions=false">
+  <div matLine *ngIf="!editMode">
+    <p>{{todoItem.todo}}</p>
+  </div>
+  <form [formGroup]="editForm" matLine *ngIf="editMode">
+    <mat-form-field class="example-full-width">
+      <mat-label>Edit Todo</mat-label>
+      <input matInput placeholder="todo" formControlName="todo">
+    </mat-form-field>
+  </form>
+  <div *ngIf="showOptions" class="d-flex">
+    <button *ngIf="!editMode" mat-icon-button color="primary" (click)="changeEditMode(todoItem)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button *ngIf="editMode" mat-icon-button color="primary" (click)="editCurrentItem()" [disabled]="editForm.invalid">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="deleteCurrentItem(todoItem._id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list-item>

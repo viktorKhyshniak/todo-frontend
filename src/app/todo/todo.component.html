@@ -1,1 +1,6 @@
-<p>todo works!</p>
+<app-todo-add (sendFormValue)="postTodoFormValue($event)"></app-todo-add>
+<app-todo-list
+  [todoList]="todoList"
+  (deleteItem)="deleteTodo($event)"
+  (updateItem)="updateTodo($event)"
+></app-todo-list>

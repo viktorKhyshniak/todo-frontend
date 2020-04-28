@@ -1,0 +1,11 @@
+<mat-list>
+  <div mat-subheader>TODOS</div>
+  <ng-container *ngFor="let todo of todoList">
+    <app-todo-list-item
+      [todoItem]="todo"
+      (updateItem)="update($event)"
+      (deleteItem)="delete($event)"
+    ></app-todo-list-item>
+  </ng-container>
+  <mat-divider></mat-divider>
+</mat-list>

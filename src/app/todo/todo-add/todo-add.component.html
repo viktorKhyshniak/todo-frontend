@@ -1,0 +1,7 @@
+<form [formGroup]="form" (ngSubmit)="submitTodoForm()">
+  <mat-form-field appearance="outline">
+    <mat-label>Add Todos</mat-label>
+    <input matInput placeholder="Read Book" formControlName="todo">
+  </mat-form-field>
+  <button mat-fab color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+</form>
