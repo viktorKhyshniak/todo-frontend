@@ -19,14 +19,13 @@ export class AuthService {
       JSON.parse(localStorage.getItem('currentUser')) : null);
   }
 
-  login(user: { login: string, password: string }): Observable<boolean> {
+  login(user: { login: string, password: string }): Observable<any> {
     return this.http.post<any>(`${Constance.apiUrlConst}auth/login`, user)
       .pipe(
         tap(info => this.doLoginUser(info.user, info)),
         mapTo(true),
         catchError(error => {
-          alert(error.error);
-          return of(false);
+          return of(error);
         }));
   }
 

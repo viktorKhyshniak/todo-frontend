@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../shared/modals/login-modal/login-modal.component';
 import { AuthService } from '../shared/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-todo',
@@ -17,7 +18,9 @@ export class TodoComponent implements OnInit, OnDestroy {
   constructor(
     private todoService: TodoService,
     private dialog: MatDialog,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private toastrService: ToastrService
+    ) { }
 
   private ngUnsubscribe$: Subject<void> = new Subject<void>();
   todoListGlobal: TodoModel[];
@@ -42,7 +45,7 @@ export class TodoComponent implements OnInit, OnDestroy {
             this.getUserTodo(res._id);
           }
         },
-        (err) => console.log(err)
+        (err) => this.toastrService.error(err.error)
         );
   }
 
@@ -59,7 +62,7 @@ export class TodoComponent implements OnInit, OnDestroy {
           this.todoListPrivate = userTodo;
           this.selectedTabIndex = 1;
         },
-        (err) => console.log(err)
+        (err) => this.toastrService.error(err.error)
       );
   }
 
@@ -71,7 +74,7 @@ export class TodoComponent implements OnInit, OnDestroy {
           this.todoListGlobal = todos;
           this.selectedTabIndex = 0;
         }),
-        ((err) => console.log(err))
+        ((err) => this.toastrService.error(err.error))
       );
   }
 
@@ -79,8 +82,11 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.todoService.postTodo({...formData, userId: this.userInfo ? this.userInfo._id : undefined})
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
-        (todo) => this.userInfo ? this.getUserTodo(this.userInfo._id) : this.getTodoList(),
-        (err) => console.log(err)
+        (todo) => {
+          this.userInfo ? this.getUserTodo(this.userInfo._id) : this.getTodoList();
+          this.toastrService.success('Add Success');
+        },
+        (err) => this.toastrService.error(err.error)
       );
   }
 
@@ -88,7 +94,7 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.todoService.deleteTodo(id)
       .pipe(takeUntil(this.ngUnsubscribe$)).subscribe(
       ((todos) => this.userInfo ? this.getUserTodo(this.userInfo._id) : this.getTodoList()),
-      ((err) => console.log(err))
+      ((err) => this.toastrService.error(err.error))
     );
   }
 
@@ -96,7 +102,7 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.todoService.putTodo(formBody._id, formBody)
       .pipe(takeUntil(this.ngUnsubscribe$)).subscribe(
       (todos) => this.userInfo ? this.getUserTodo(this.userInfo._id) : this.getTodoList(),
-      (err) => console.log(err)
+      (err) => this.toastrService.error(err.error)
     );
   }
 
@@ -105,7 +111,7 @@ export class TodoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         (item) => item && this.login(item),
-        (err) => console.log(err),
+        (err) => this.toastrService.error(err.error),
       );
   }
 
@@ -114,7 +120,7 @@ export class TodoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         (item) => item && this.registrationNewUser(item),
-        (err) => console.log(err),
+        (err) => this.toastrService.error(err.error),
       );
   }
 
@@ -123,11 +129,14 @@ export class TodoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(
         (res) => {
-          if (res) {
+          if (!res.error) {
             this.isUserLoggedIn = item;
+            this.toastrService.success('WELCOME USER');
+          } else {
+            this.toastrService.error(res.error);
           }
         },
-        error => console.log(error)
+        (err) => this.toastrService.error(err.error)
       );
   }
 
@@ -139,12 +148,12 @@ export class TodoComponent implements OnInit, OnDestroy {
         this.userInfo = null;
         this.selectedTabIndex = 0;
         this.todoListPrivate = null;
-      }, (err) => console.log(err));
+      }, (err) => this.toastrService.error(err.error));
   }
 
   registrationNewUser(formBody) {
     this.authService.registrationNewUser(formBody)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => console.log(res))
+      .subscribe((res) => this.toastrService.success(res), (err) => this.toastrService.error(err.error))
   }
 }
