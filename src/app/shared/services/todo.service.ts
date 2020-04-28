@@ -26,4 +26,8 @@ export class TodoService {
   putTodo(id: string, formData: TodoModel): Observable<TodoModel> {
     return this.http.put<TodoModel>(`${Constance.apiUrlConst}todo/${id}`, formData);
   }
+
+  getTodoByUserId(id: string) {
+    return this.http.get<TodoModel[]>(`${Constance.apiUrlConst}todo/${id}`);
+  }
 }

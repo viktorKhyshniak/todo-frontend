@@ -8,9 +8,12 @@
       <input matInput placeholder="todo" formControlName="todo">
     </mat-form-field>
   </form>
-  <div *ngIf="showOptions" class="d-flex">
+  <div *ngIf="isOptionActive && showOptions" class="d-flex">
     <button *ngIf="!editMode" mat-icon-button color="primary" (click)="changeEditMode(todoItem)">
       <mat-icon>edit</mat-icon>
+    </button>
+    <button *ngIf="editMode" mat-icon-button color="primary" (click)="changeMode()">
+      <mat-icon>keyboard_return</mat-icon>
     </button>
     <button *ngIf="editMode" mat-icon-button color="primary" (click)="editCurrentItem()" [disabled]="editForm.invalid">
       <mat-icon>save</mat-icon>

@@ -9,6 +9,7 @@ import { TodoModel } from '../../shared/models';
 export class TodoListComponent implements OnInit {
 
   @Input() todoList: TodoModel[];
+  @Input() isOptionActive: boolean;
   @Output() deleteItem = new EventEmitter();
   @Output() updateItem = new EventEmitter();
 

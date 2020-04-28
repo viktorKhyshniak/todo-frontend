@@ -1,6 +1,40 @@
+<header class="flex-r">
+  <button class="m-1" mat-mini-fab color="primary" [matMenuTriggerFor]="menu" >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item  *ngIf="!isUserLoggedIn" (click)="openLoginDialog()">
+      <mat-icon>input</mat-icon>
+      LOGIN
+    </button>
+    <button mat-menu-item *ngIf="isUserLoggedIn" (click)="logout()">
+      <mat-icon>output</mat-icon>
+      <span>LOGOUT</span>
+    </button>
+    <button mat-menu-item *ngIf="!isUserLoggedIn" (click)="openRegistrationDialog()">
+      <mat-icon>create_new_folder</mat-icon>
+      <span>REGISTRATION</span>
+    </button>
+  </mat-menu>
+</header>
 <app-todo-add (sendFormValue)="postTodoFormValue($event)"></app-todo-add>
-<app-todo-list
-  [todoList]="todoList"
-  (deleteItem)="deleteTodo($event)"
-  (updateItem)="updateTodo($event)"
-></app-todo-list>
+<div class="w-80">
+  <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedTabIndex">
+    <mat-tab label="General Todo">
+      <app-todo-list
+        [todoList]="todoListGlobal"
+        [isOptionActive]="false"
+        (deleteItem)="deleteTodo($event)"
+        (updateItem)="updateTodo($event)"
+      ></app-todo-list>
+    </mat-tab>
+    <mat-tab label="Private Todo" [disabled]="!isUserLoggedIn">
+      <app-todo-list
+        [todoList]="todoListPrivate"
+        [isOptionActive]="true"
+        (deleteItem)="deleteTodo($event)"
+        (updateItem)="updateTodo($event)"
+      ></app-todo-list>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -3,6 +3,7 @@
   <ng-container *ngFor="let todo of todoList">
     <app-todo-list-item
       [todoItem]="todo"
+      [isOptionActive]="isOptionActive"
       (updateItem)="update($event)"
       (deleteItem)="delete($event)"
     ></app-todo-list-item>

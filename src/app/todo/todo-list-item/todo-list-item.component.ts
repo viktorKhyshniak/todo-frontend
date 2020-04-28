@@ -12,6 +12,7 @@ export class TodoListItemComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   @Input() todoItem: TodoModel;
+  @Input() isOptionActive = false;
   @Output() deleteItem = new EventEmitter();
   @Output() updateItem = new EventEmitter();
   showOptions = false;
@@ -30,11 +31,15 @@ export class TodoListItemComponent implements OnInit {
 
   editCurrentItem() {
     this.updateItem.emit(this.editForm.value);
-    this.editMode = !this.editMode;
+    this.changeMode();
   }
 
   changeEditMode(value) {
-    this.editMode = !this.editMode;
+    this.changeMode();
     this.editForm.patchValue(value);
+  }
+
+  changeMode() {
+    this.editMode = !this.editMode;
   }
 }
