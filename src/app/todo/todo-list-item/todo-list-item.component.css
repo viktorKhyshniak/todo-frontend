@@ -1,7 +1,20 @@
 .d-flex {
-  display: flex;
+  display: flex!important;
+  justify-content: space-between;
+}
+
+.end {
+  justify-content: flex-end!important;
 }
 
 .mat-list-item {
   height: 5rem;
+}
+
+.green {
+  color: greenyellow;
+}
+
+.todo-name {
+  align-self: center;
 }

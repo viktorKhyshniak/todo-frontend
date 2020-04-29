@@ -1,12 +1,18 @@
 <mat-list>
-  <div mat-subheader>TODOS</div>
-  <ng-container *ngFor="let todo of todoList">
+  <h2 mat-subheader>TODO</h2>
+  <mat-button-toggle-group name="todoFilter" [value]="lastPlace" (valueChange)="filterTodos($event)">
+    <mat-button-toggle value="all">All</mat-button-toggle>
+    <mat-button-toggle value="active">Active</mat-button-toggle>
+    <mat-button-toggle value="complete">Complete</mat-button-toggle>
+  </mat-button-toggle-group>
+  <ng-container *ngFor="let todo of listOfTodo">
     <app-todo-list-item
       [todoItem]="todo"
-      [isOptionActive]="isOptionActive"
       (updateItem)="update($event)"
       (deleteItem)="delete($event)"
+      (statusChange)="filterTodos($event)"
     ></app-todo-list-item>
   </ng-container>
   <mat-divider></mat-divider>
+  <div>Items left {{listOfTodo && listOfTodo.length}}</div>
 </mat-list>
