@@ -20,12 +20,21 @@ export class TodoListItemComponent implements OnInit {
   editMode = false;
   editForm = this.fb.group({
     _id: [''],
-    status: ['Active', Validators.required],
+    status: ['active', Validators.required],
     todo: ['', Validators.required]
   });
   statusConst = Constance.todoStatuses;
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.editForm = this.fb.group({
+      _id: [''],
+      status: ['active', Validators.required],
+      todo: ['', Validators.required]
+    });
   }
 
   deleteCurrentItem($event, id: string) {

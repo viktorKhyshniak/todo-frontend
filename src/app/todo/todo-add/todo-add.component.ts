@@ -13,15 +13,24 @@ export class TodoAddComponent implements OnInit {
   @Output() sendFormValue = new EventEmitter();
 
   form = this.fb.group({
-    todo: ['']
+    todo: [''],
+    status: ['active']
   });
 
   ngOnInit(): void {
+    this.initForm();
   }
 
   submitTodoForm() {
     this.sendFormValue.emit(this.form.value);
-    this.form.reset();
+    this.initForm();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      todo: [''],
+      status: ['active']
+    });
   }
 
 }
