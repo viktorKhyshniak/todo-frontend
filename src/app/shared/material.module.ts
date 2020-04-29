@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 
@@ -22,7 +24,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatDialogModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonToggleModule
   ],
   exports: [
     MatListModule,
@@ -32,7 +35,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatDialogModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule { }

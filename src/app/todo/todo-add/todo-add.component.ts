@@ -13,7 +13,7 @@ export class TodoAddComponent implements OnInit {
   @Output() sendFormValue = new EventEmitter();
 
   form = this.fb.group({
-    todo: ['', Validators.required]
+    todo: ['']
   });
 
   ngOnInit(): void {

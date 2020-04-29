@@ -1,26 +1,33 @@
-<mat-list-item matLine (mouseover)="showOptions=true" (mouseleave)="showOptions=false">
-  <div matLine *ngIf="!editMode">
-    <p>{{todoItem.todo}}</p>
+<mat-list-item matLine (mouseover)="showOptions=true" (mouseleave)="showOptions=false"
+               (click)="changeStatus($event, todoItem.status)">
+  <div matLine *ngIf="!editMode" class="d-flex w-50">
+    <span class="green"><mat-icon *ngIf="todoItem?.status === statusConst?.complete">done_outline</mat-icon></span>
+    <span class="todo-name w-50">{{todoItem.todo}}</span>
   </div>
-  <form [formGroup]="editForm" matLine *ngIf="editMode">
+  <form matLine [formGroup]="editForm" *ngIf="editMode" class="d-flex w-50 end"
+        (click)="formChange($event)"
+        (change)="formChange($event)">
     <mat-form-field class="example-full-width">
       <mat-label>Edit Todo</mat-label>
       <input matInput placeholder="todo" formControlName="todo">
     </mat-form-field>
   </form>
-  <div *ngIf="isOptionActive && showOptions" class="d-flex">
-    <button *ngIf="!editMode" mat-icon-button color="primary" (click)="changeEditMode(todoItem)">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button *ngIf="editMode" mat-icon-button color="primary" (click)="changeMode()">
-      <mat-icon>keyboard_return</mat-icon>
-    </button>
-    <button *ngIf="editMode" mat-icon-button color="primary" (click)="editCurrentItem()" [disabled]="editForm.invalid">
-      <mat-icon>save</mat-icon>
-    </button>
-    <button mat-icon-button color="warn" (click)="deleteCurrentItem(todoItem._id)">
-      <mat-icon>delete</mat-icon>
-    </button>
+  <div class="w-50">
+    <div class="d-flex end" *ngIf="showOptions">
+      <button *ngIf="!editMode" mat-icon-button color="primary" (click)="changeEditMode($event, todoItem)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button *ngIf="editMode" mat-icon-button color="primary" (click)="editMode = changeMode($event, editMode)">
+        <mat-icon>keyboard_return</mat-icon>
+      </button>
+      <button *ngIf="editMode" mat-icon-button color="primary" (click)="editCurrentItem($event, editForm.value)"
+              [disabled]="editForm.invalid">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteCurrentItem($event, todoItem._id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
   <mat-divider></mat-divider>
 </mat-list-item>

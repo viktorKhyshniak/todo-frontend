@@ -154,6 +154,6 @@ export class TodoComponent implements OnInit, OnDestroy {
   registrationNewUser(formBody) {
     this.authService.registrationNewUser(formBody)
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((res) => this.toastrService.success(res), (err) => this.toastrService.error(err.error))
+      .subscribe((res) => this.toastrService.success(`Hello,now just login`), (err) => this.toastrService.error(err.error))
   }
 }

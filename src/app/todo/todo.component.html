@@ -20,10 +20,9 @@
 <app-todo-add (sendFormValue)="postTodoFormValue($event)"></app-todo-add>
 <div class="w-80">
   <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedTabIndex">
-    <mat-tab label="General Todo">
+    <mat-tab label="Public Todo">
       <app-todo-list
         [todoList]="todoListGlobal"
-        [isOptionActive]="false"
         (deleteItem)="deleteTodo($event)"
         (updateItem)="updateTodo($event)"
       ></app-todo-list>
@@ -31,7 +30,6 @@
     <mat-tab label="Private Todo" [disabled]="!isUserLoggedIn">
       <app-todo-list
         [todoList]="todoListPrivate"
-        [isOptionActive]="true"
         (deleteItem)="deleteTodo($event)"
         (updateItem)="updateTodo($event)"
       ></app-todo-list>

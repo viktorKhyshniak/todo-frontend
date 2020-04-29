@@ -3,6 +3,9 @@
     <mat-label>Add Todos</mat-label>
     <input matInput placeholder="Read Book" formControlName="todo">
   </mat-form-field>
-  <button class="m-1" mat-mini-fab color="primary" type="submit"
-          [disabled]="form.invalid"><small>Submit</small></button>
+  <button class="m-1" [disabled]="form.controls.todo.value && form.controls.todo.value.length === 0"
+          mat-raised-button color="primary">
+    <small>Submit</small>
+  </button>
+
 </form>

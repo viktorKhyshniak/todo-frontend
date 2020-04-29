@@ -1,13 +1,14 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
   <mat-form-field class="w-100">
-    <mat-label>Login</mat-label>
+    <mat-label>{{dialogData.buttonText}}</mat-label>
     <input matInput placeholder="min 6" formControlName="login">
   </mat-form-field>
-
   <mat-form-field class="w-100">
     <mat-label>Password</mat-label>
-    <input matInput placeholder="min 6" formControlName="password">
+    <input matInput placeholder="min 6" type="password" formControlName="password">
   </mat-form-field>
   <button mat-flat-button color="primary" type="submit"
-          [disabled]="loginForm.invalid">{{dialogData.buttonText}}</button>
+          [disabled]="loginForm.invalid">
+    {{dialogData.buttonText}}
+  </button>
 </form>
